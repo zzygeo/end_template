@@ -37,7 +37,7 @@ create table oper_log
     jsonResult   text                                   null comment '返回参数',
     status       char         default '0'               null comment '操作状态（0正常 1异常）',
     errorMsg     text                                   null comment '错误信息',
-    operTime     timestamp    default CURRENT_TIMESTAMP not null comment '操作时间',
+    operTime     datetime    default CURRENT_TIMESTAMP not null comment '操作时间',
     costTime     bigint       default 0                 null comment '消耗时间'
 )
     comment '日志操作表';
@@ -60,7 +60,7 @@ create table login_info
     os            varchar(50)  default ''                null comment '系统信息',
     status        char         default '0'               null comment '登陆状态',
     msg           varchar(255) default '提示消息'        null,
-    loginTime     timestamp    default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '访问时间'
+    loginTime     datetime    default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '访问时间'
 ) comment '登陆日志表';
 
 create index idx_loginTime
