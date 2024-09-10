@@ -56,7 +56,7 @@ public class ResultUtils {
      * @return
      */
     public static BaseResponse error(ErrorCode errorCode, ShowTypeCode showTypeCode) {
-        return new BaseResponse<Void>(false, errorCode.getCode(), errorCode.getMessage(), ShowTypeCode.ERROR_MESSAGE.getCode(), null);
+        return new BaseResponse<Void>(false, errorCode.getCode(), errorCode.getMessage(), showTypeCode.ERROR_MESSAGE.getCode(), null);
     }
 
     /**
