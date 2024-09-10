@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.endtemplate.mapper.LoginInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzy.endtemplate.model.entity.LoginInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userName" column="userName" jdbcType="VARCHAR"/>
+            <result property="ipAddr" column="ipAddr" jdbcType="VARCHAR"/>
+            <result property="loginLocation" column="loginLocation" jdbcType="VARCHAR"/>
+            <result property="browser" column="browser" jdbcType="VARCHAR"/>
+            <result property="os" column="os" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="msg" column="msg" jdbcType="VARCHAR"/>
+            <result property="loginTime" column="loginTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,userName,ipAddr,
+        loginLocation,browser,os,
+        status,msg,loginTime
+    </sql>
+</mapper>
