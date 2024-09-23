@@ -5,6 +5,7 @@ import com.zzy.endtemplate.utils.ThreadUtils;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author zzy
@@ -33,7 +34,7 @@ public class AsyncManager {
 
 
     public void execute(TimerTask task) {
-        executor.schedule(task, OPERATE_DELAY_TIME, java.util.concurrent.TimeUnit.MILLISECONDS);
+        executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
     }
 
     public void shutdown() {
