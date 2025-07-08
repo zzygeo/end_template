@@ -69,7 +69,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         // 如果该菜单下绑定了文件，那么也不能删除
         boolean b = sysFileService.containsFile(id);
         ThrowUtils.throwIf(b, ErrorCode.FORBIDDEN_ERROR, "该菜单下存在了文件，不能删除");
-        // 如果有子菜单也不能删除
         return this.removeById(id);
     }
 
