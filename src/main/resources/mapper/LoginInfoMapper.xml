@@ -4,21 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zzy.endtemplate.mapper.LoginInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.zzy.endtemplate.model.entity.LoginInfo">
+    <resultMap id="BaseResultMap" type="com.zzy.biaohui.model.entity.LoginInfo">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="userName" column="userName" jdbcType="VARCHAR"/>
-            <result property="ipAddr" column="ipAddr" jdbcType="VARCHAR"/>
-            <result property="loginLocation" column="loginLocation" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="ipAddr" column="ip_addr" jdbcType="VARCHAR"/>
+            <result property="loginLocation" column="login_location" jdbcType="VARCHAR"/>
             <result property="browser" column="browser" jdbcType="VARCHAR"/>
             <result property="os" column="os" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="CHAR"/>
             <result property="msg" column="msg" jdbcType="VARCHAR"/>
-            <result property="loginTime" column="loginTime" jdbcType="TIMESTAMP"/>
+            <result property="loginTime" column="login_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,userName,ipAddr,
-        loginLocation,browser,os,
-        status,msg,loginTime
+        id,user_name,ip_addr,
+        login_location,browser,os,
+        status,msg,login_time
     </sql>
 </mapper>

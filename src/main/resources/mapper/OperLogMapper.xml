@@ -4,27 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zzy.endtemplate.mapper.OperLogMapper">
 
-    <resultMap id="BaseResultMap" type="com.zzy.endtemplate.model.entity.OperLog">
+    <resultMap id="BaseResultMap" type="com.zzy.biaohui.model.entity.OperLog">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
-            <result property="businessType" column="businessType" jdbcType="CHAR"/>
-            <result property="operMethod" column="operMethod" jdbcType="VARCHAR"/>
-            <result property="operName" column="operName" jdbcType="VARCHAR"/>
-            <result property="operUrl" column="operUrl" jdbcType="VARCHAR"/>
-            <result property="operIp" column="operIp" jdbcType="VARCHAR"/>
-            <result property="operParam" column="operParam" jdbcType="VARCHAR"/>
-            <result property="jsonResult" column="jsonResult" jdbcType="VARCHAR"/>
+            <result property="businessType" column="business_type" jdbcType="CHAR"/>
+            <result property="operMethod" column="oper_method" jdbcType="VARCHAR"/>
+            <result property="operName" column="oper_name" jdbcType="VARCHAR"/>
+            <result property="operUrl" column="oper_url" jdbcType="VARCHAR"/>
+            <result property="operIp" column="oper_ip" jdbcType="VARCHAR"/>
+            <result property="operParam" column="oper_param" jdbcType="VARCHAR"/>
+            <result property="jsonResult" column="json_result" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="CHAR"/>
-            <result property="errorMsg" column="errorMsg" jdbcType="VARCHAR"/>
-            <result property="operTime" column="operTime" jdbcType="TIMESTAMP"/>
-            <result property="costTime" column="costTime" jdbcType="BIGINT"/>
+            <result property="errorMsg" column="error_msg" jdbcType="VARCHAR"/>
+            <result property="operTime" column="oper_time" jdbcType="TIMESTAMP"/>
+            <result property="costTime" column="cost_time" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,title,businessType,
-        operMethod,operName,operUrl,
-        operIp,operParam,jsonResult,
-        status,errorMsg,operTime,
-        costTime
+        id,title,business_type,
+        oper_method,oper_name,oper_url,
+        oper_ip,oper_param,json_result,
+        status,error_msg,oper_time,
+        cost_time
     </sql>
 </mapper>
