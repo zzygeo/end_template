@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.biaohui.mapper.SysFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzy.biaohui.model.entity.SysFile">
+            <id property="id" column="id" />
+            <result property="fileName" column="file_name" />
+            <result property="fileUrl" column="file_url" />
+            <result property="md5Name" column="md5_name" />
+            <result property="menuId" column="menu_id" />
+            <result property="fileSize" column="file_size" />
+            <result property="fileType" column="file_type" />
+            <result property="businessType" column="business_type" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,file_name,file_url,md5_name,menu_id,file_size,
+        file_type,business_type,create_time,update_time
+    </sql>
+</mapper>
