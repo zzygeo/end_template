@@ -1,10 +1,12 @@
 package com.zzy.biaohui.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zzy.biaohui.common.ErrorCode;
 import com.zzy.biaohui.exception.BusinessException;
 import com.zzy.biaohui.mapper.MenuMapper;
 import com.zzy.biaohui.model.entity.Menu;
+import com.zzy.biaohui.model.vo.MenuFileNums;
 import com.zzy.biaohui.model.vo.MenuTree;
 import com.zzy.biaohui.service.MenuService;
 import com.zzy.biaohui.service.SysFileService;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 
@@ -69,17 +72,35 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         // 如果该菜单下绑定了文件，那么也不能删除
         boolean b = sysFileService.containsFile(id);
         ThrowUtils.throwIf(b, ErrorCode.FORBIDDEN_ERROR, "该菜单下存在了文件，不能删除");
+        // 如果有子菜单也不能删除
+        boolean hasChild = hasChild(menuDB);
+        ThrowUtils.throwIf(hasChild, ErrorCode.FORBIDDEN_ERROR, "该菜单下存在了子菜单，不能删除");
         return this.removeById(id);
     }
 
     @Override
-    public List<MenuTree> getMenuTree() {
+    public List<MenuTree> getMenuTree(Long parentId) {
         List<Menu> list = this.list();
-        return buildMenuTree(list, 0L);
+        List<MenuFileNums> menuFileNums = sysFileService.listMenuFileNums();
+        return buildMenuTree(list, parentId, menuFileNums);
+    }
+
+    @Override
+    public boolean hasChild(Menu menu) {
+        ThrowUtils.throwIf(menu == null, ErrorCode.PARAMS_ERROR);
+        Long id = menu.getId();
+        ThrowUtils.throwIf(id == null, ErrorCode.PARAMS_ERROR, "id不能为空");
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Menu::getParentId, id);
+        long count = this.count(queryWrapper);
+        if (count > 0) {
+            return true;
+        }
+        return false;
     }
 
 
-    private List<MenuTree> buildMenuTree(List<Menu> menus, long parentId) {
+    private List<MenuTree> buildMenuTree(List<Menu> menus, long parentId, List<MenuFileNums> menuFileNums) {
         // 如果没有子菜单，就返回
         List<Menu> collect = menus.stream().filter(menu -> menu.getParentId().equals(parentId)).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(collect)) {
@@ -88,8 +109,23 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         List<MenuTree> menuTrees = collect.stream().map(menu -> {
             MenuTree menuTree = new MenuTree();
             BeanUtils.copyProperties(menu, menuTree);
-            List<MenuTree> children = buildMenuTree(menus, menu.getId());
-            menuTree.setChildren(children);
+            List<MenuTree> children = buildMenuTree(menus, menu.getId(), menuFileNums);
+            if(!CollectionUtils.isEmpty(children)) {
+                menuTree.setChildren(children);
+                menuTree.setChildrenNums(children.size());
+            }
+            // 先计算children
+            AtomicLong nums = new AtomicLong();
+            if (!CollectionUtils.isEmpty(children)) {
+                nums.set(children.stream().mapToLong(item -> item.getFileNums()).sum());
+            }
+            // 再计算当前目录的文件数量，分组里不一定有这个记录
+            menuFileNums.forEach(menuFileNum -> {
+                if (menu.getId().equals(menuFileNum.getMenuId())) {
+                    nums.addAndGet(menuFileNum.getFileNums());
+                }
+            });
+            menuTree.setFileNums(nums.get());
             return menuTree;
         }).collect(Collectors.toList());
         return menuTrees;

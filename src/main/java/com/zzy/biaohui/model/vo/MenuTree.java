@@ -35,6 +35,16 @@ public class MenuTree {
     private Date updateTime;
 
     /**
+     *
+     */
+    private Integer childrenNums = 0;
+
+    /**
+     *
+     */
+    private Long fileNums = 0L;
+
+    /**
      * 子节点
      */
     private List<MenuTree> children;

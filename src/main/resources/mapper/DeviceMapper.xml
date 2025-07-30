@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.biaohui.mapper.DeviceMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzy.biaohui.model.entity.Device">
+            <id property="id" column="id" />
+            <result property="deviceId" column="device_id" />
+            <result property="deviceName" column="device_name" />
+            <result property="deviceProperty" column="device_property" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="deviceType" column="device_type" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,device_id,device_name,device_property,create_time,update_time,
+        device_type
+    </sql>
+</mapper>

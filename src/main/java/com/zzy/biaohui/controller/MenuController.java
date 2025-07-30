@@ -53,9 +53,10 @@ public class MenuController {
     }
 
     @GetMapping("/tree")
-    public BaseResponse<List<MenuTree>> getMenuTree() {
-        List<MenuTree> menuTreeList = menuService.getMenuTree();
+    public BaseResponse<List<MenuTree>> getMenuTree(Long parentId) {
+        ThrowUtils.throwIf(parentId == null, ErrorCode.PARAMS_ERROR, "parentId不能为空");
+        ThrowUtils.throwIf(!parentId.equals(0L) && !parentId.equals(10000000L), ErrorCode.PARAMS_ERROR, "parentId只能为0或者10000000，0为标汇 10000000为模型");
+        List<MenuTree> menuTreeList = menuService.getMenuTree(parentId);
         return ResultUtils.success(menuTreeList);
     }
-
 }

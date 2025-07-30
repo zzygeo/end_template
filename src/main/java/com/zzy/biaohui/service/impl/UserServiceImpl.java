@@ -200,6 +200,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
+    public User getUserByAccount(String userAccount) {
+        ThrowUtils.throwIf(StringUtils.isBlank(userAccount), ErrorCode.PARAMS_ERROR);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(User::getUserAccount, userAccount);
+        return this.getOne(lambdaQueryWrapper);
+    }
+
+    @Override
     public List<UserVO> listUser(UserQueryRequest userQueryRequest) {
         Long id = userQueryRequest.getId();
         String userName = userQueryRequest.getUserName();
@@ -224,6 +232,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (StringUtils.isNotBlank(sortField)) {
             // 如果传入降序，则为true, 则按字段的降序排序，
             queryWrapper.orderByDesc(Constants.SORT_ORDER_ASC.equals(sortOrder), User.getLambda(sortField));
+            queryWrapper.orderByAsc(Constants.SORT_ORDER_ASC.equals(sortOrder), User.getLambda(sortField));
         }
         List<User> userList = this.list(queryWrapper);
         List<UserVO> userVOList = userList.stream().map(user -> {
@@ -262,6 +271,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (StringUtils.isNotBlank(sortField)) {
             // 如果传入降序，则为true, 则按字段的降序排序，
             queryWrapper.orderByDesc(Constants.SORT_ORDER_DESC.equals(sortOrder), User.getLambda(sortField));
+            queryWrapper.orderByAsc(Constants.SORT_ORDER_ASC.equals(sortOrder), User.getLambda(sortField));
         }
         Page<User> userPage = this.page(new Page<>(current, pageSize), queryWrapper);
         Page<UserVO> userVOPage = new PageDTO<>(current, pageSize, userPage.getTotal());

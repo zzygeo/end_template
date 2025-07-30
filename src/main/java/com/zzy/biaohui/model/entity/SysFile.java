@@ -32,7 +32,8 @@ public class SysFile implements Serializable {
             Map.entry("fileType", SysFile::getFileType),
             Map.entry("businessType", SysFile::getBusinessType),
             Map.entry("createTime", SysFile::getCreateTime),
-            Map.entry("updateTime", SysFile::getUpdateTime)
+            Map.entry("updateTime", SysFile::getUpdateTime),
+            Map.entry("thumbnail", SysFile::getThumbnail)
     );
 
     public static SFunction<SysFile, ?> getLambda(String fieldName) {
@@ -92,6 +93,11 @@ public class SysFile implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date updateTime;
 
+    /**
+     * 缩略图
+     */
+    private String thumbnail;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -116,7 +122,8 @@ public class SysFile implements Serializable {
             && (this.getFileType() == null ? other.getFileType() == null : this.getFileType().equals(other.getFileType()))
             && (this.getBusinessType() == null ? other.getBusinessType() == null : this.getBusinessType().equals(other.getBusinessType()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getThumbnail() == null ? other.getThumbnail() == null : this.getThumbnail().equals(other.getThumbnail()));
     }
 
     @Override
@@ -133,6 +140,7 @@ public class SysFile implements Serializable {
         result = prime * result + ((getBusinessType() == null) ? 0 : getBusinessType().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getThumbnail() == null) ? 0 : getThumbnail().hashCode());
         return result;
     }
 
@@ -152,6 +160,7 @@ public class SysFile implements Serializable {
         sb.append(", businessType=").append(businessType);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", thumbnail=").append(thumbnail);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -19,5 +19,12 @@ public interface MenuService extends IService<Menu> {
     boolean deleteMenu(Menu menu);
 
     // 目录树
-    List<MenuTree> getMenuTree();
+    List<MenuTree> getMenuTree(Long parentId);
+
+    /**
+     * 是否有子菜单
+     * @param menu
+     * @return
+     */
+    boolean hasChild(Menu menu);
 }

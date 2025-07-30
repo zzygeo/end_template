@@ -61,6 +61,7 @@ public class OperLogServiceImpl extends ServiceImpl<OperLogMapper, OperLog>
 
         if (StringUtils.isNotBlank(sortField)) {
             queryWrapper.orderByDesc(Constants.SORT_ORDER_DESC.equals(sortOrder), OperLog.getLambda(sortField));
+            queryWrapper.orderByAsc(Constants.SORT_ORDER_ASC.equals(sortOrder), OperLog.getLambda(sortField));
         }
         Page<OperLog> loginInfoPage = new Page<>(current, pageSize);
         Page<OperLog> page = this.page(loginInfoPage, queryWrapper);

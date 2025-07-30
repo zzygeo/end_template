@@ -90,6 +90,8 @@ public interface UserService extends IService<User> {
      */
     boolean updateUser(User user);
 
+    User getUserByAccount(String userAccount);
+
     List<UserVO> listUser(UserQueryRequest userQueryRequest);
 
     Page<UserVO> pageUser(UserQueryRequest userQueryRequest);

@@ -15,10 +15,11 @@
             <result property="businessType" column="business_type" />
             <result property="createTime" column="create_time" />
             <result property="updateTime" column="update_time" />
+            <result property="thumbnail" column="thumbnail" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,file_name,file_url,md5_name,menu_id,file_size,
-        file_type,business_type,create_time,update_time
+        file_type,business_type,create_time,update_time,thumbnail
     </sql>
 </mapper>

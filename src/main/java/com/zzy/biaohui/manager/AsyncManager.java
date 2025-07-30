@@ -37,6 +37,10 @@ public class AsyncManager {
         executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
     }
 
+    public void execute(TimerTask task, long delay) {
+        executor.schedule(task, delay, TimeUnit.MILLISECONDS);
+    }
+
     public void shutdown() {
         ThreadUtils.shutdownAndAwaitTermination(executor);
     }

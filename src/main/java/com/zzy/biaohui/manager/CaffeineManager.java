@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class CaffeineManager {
-    private final Cache<String, Object> LOCAL_CACHE = Caffeine.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES)
+    private final Cache<String, Object> LOCAL_CACHE = Caffeine.newBuilder().expireAfterAccess(720, TimeUnit.MINUTES)
             .initialCapacity(1024).maximumSize(10000).build();
 
     /**

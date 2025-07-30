@@ -58,6 +58,7 @@ public class LoginInfoServiceImpl extends ServiceImpl<LoginInfoMapper, LoginInfo
         queryWrapper.le(endTime != null, LoginInfo::getLoginTime, endTime);
         if (StringUtils.isNotBlank(sortField)) {
             queryWrapper.orderByDesc(Constants.SORT_ORDER_DESC.equals(sortOrder), LoginInfo.getLambda(sortField));
+            queryWrapper.orderByAsc(Constants.SORT_ORDER_ASC.equals(sortOrder), LoginInfo.getLambda(sortField));
         }
 
         Page<LoginInfo> logininforPage = new Page<>(current, pageSize);
